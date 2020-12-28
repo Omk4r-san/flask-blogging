@@ -1,10 +1,21 @@
+
 from flask import Flask, render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy 
 from forms import RegistrationForm, LoginForm
+from flask_debug import Debug
+
 
 app = Flask(__name__)
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '01ca564fac9185a04f417ae3211ba8f6'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
+db = SQLAlchemy(app)
 
+from models import User, Post
+
+
+
+               
 posts = [
     {
         'author': 'Omkar Prasad',
@@ -63,4 +74,4 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
